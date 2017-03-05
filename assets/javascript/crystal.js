@@ -113,18 +113,17 @@ function startNewGame() {
 startNewGame();
 
 // when a crystal is clicked
-$('.crystal').click(function() { 
+$('#crystalHolder').on('click', '.crystal', function() { 
 	//self = this???
+	console.log('clicked')
 	currentScore = addCrystalValueToScore(getCrystal(this.id).value); // update the current score
 	updateCurrentScoreDisplay();
 	if (isGameOver(currentScore, targetScore)) {
 		if (isGameWon(currentScore, targetScore)) {
-			alert("you win");
 			winCount++;
 			updateWinsDisplay();
 			displayWinMessage();
 		} else {
-			alert("you lose")
 			displayLoseMessage();
 		}
 	}
