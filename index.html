@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Game!</title>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/css/reset.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+	<div class="box">
+		<div class="content">
+			<h1 class="title">Crystal Collector!</h2>
+			<div id="icon-holder">
+				<i class="fa fa-diamond fa-4x"></i>
+				<i class="fa fa-diamond fa-4x"></i>
+				<i class="fa fa-diamond fa-4x"></i>
+			</div>
+			<div class="instructions">
+				<p></p>
+			</div>
+			<div class="category"><h2>Target: </h2><p id="targetScore"></p></div>
+			<div class="category"><h2>Wins: </h2><p id="wins">0</p></div>
+			<div><h2>Crystals!</h2><div id="crystalHolder"></div></div>
+			<div class="category"><h2>Current Score: </h2><p id="currentScore"></p></div>
+		</div>
+		<div class="gameOver notDisplayed" id="youWin">
+			<i class="fa fa-smile-o fa-5x" aria-hidden="true"></i>
+			<br>
+			<h2>You got it, Great work!</h2>
+			<button class="reset">Play again?</button>
+		</div>
+		<div class="gameOver notDisplayed" id="youLose"><i class="fa fa-frown-o fa-5x" aria-hidden="true"></i>
+			<br>
+			<h2>Oh no, you missed it!</h2>
+			<button class="reset">Play again?</button></div>
+	</div>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	<script src="assets/javascript/crystal.js"></script>
+	<!-- <script src="assets/javascript/duellist.js"></script> -->
+</body>
+</html>

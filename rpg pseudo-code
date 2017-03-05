@@ -1,0 +1,26 @@
+display characters
+get character choice
+set other characters as adversaries
+set head to head between player and first adversary
+display head-to-head background story
+display walk button
+count steps
+on tenth step, display turn and shoot buttons in random position on canvas
+if user clicks turn first
+	then if user also clicks shoot in time
+		50/50 user wins
+			user faces next opponent
+		50/50 user wings opponent, they duel again, opponent speed is faster
+			if win, win
+			if tie, second
+				50/50 your second loses or the seconds agree that you should be ashamed of yourselves, you continue
+			if lose, lose
+	else if user doesn't click shoot in time
+		user loses
+		ramdom 20/80: gets shot and dies, or gets missed and continues to seconds
+else if user clicks shoot first
+	else if user clicks turn in time
+		50/50 user shoots bystander and stares adversary into submission, wins
+		50/50 shoots into the crowd but misses 
+			50/50 oponenent also shoots into crowd, continues to seconds
+	else user shoots into crowd, gets shot in back, loses
