@@ -24,7 +24,7 @@ function getTargetScore(high, low) {
 }
 
 // reaturns a value to set to a crystl
-function getCrystalValue() {
+function getNewValue() {
 	return Math.floor((Math.random() * 12)) + 1;
 }
 
@@ -46,7 +46,7 @@ function isGameWon(score, target) {
 function initializeCrystals() {
 	crystalArray = randomizeArrayOrder(crystalArray);
 	crystalArray.forEach(function(crystal) {
-		crystal.value = getCrystalValue();
+		crystal.value = getNewValue();
 	});
 }
 
@@ -110,28 +110,30 @@ function startNewGame() {
 	addCrystalsToDom();
 }
 
-startNewGame();
+$('document').ready(function() {
 
-// when a crystal is clicked
-$('#crystalHolder').on('click', '.crystal', function() { 
-	//self = this???
-	console.log('clicked')
-	currentScore = addCrystalValueToScore(getCrystal(this.id).value); // update the current score
-	updateCurrentScoreDisplay();
-	if (isGameOver(currentScore, targetScore)) {
-		if (isGameWon(currentScore, targetScore)) {
-			winCount++;
-			updateWinsDisplay();
-			displayWinMessage();
-		} else {
-			displayLoseMessage();
-		}
-	}
-});
-
-$('.reset').click(function() {
 	startNewGame();
-	hideMessage()
-})
 
+	// when a crystal is clicked
+	$('#crystalHolder').on('click', '.crystal', function() { 
+		console.log('clicked')
+		currentScore = addCrystalValueToScore(getCrystal(this.id).value); // update the current score
+		updateCurrentScoreDisplay();
+		if (isGameOver(currentScore, targetScore)) {
+			if (isGameWon(currentScore, targetScore)) {
+				winCount++;
+				updateWinsDisplay();
+				displayWinMessage();
+			} else {
+				displayLoseMessage();
+			}
+		}
+	});
+
+	$('.reset').click(function() {
+		startNewGame();
+		hideMessage()
+	})
+
+});
 
