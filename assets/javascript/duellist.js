@@ -2,13 +2,13 @@
 var duel = {
 	
 	// factory function to create duel opponents
-	createDuelOpponent: function(name, honor, speed, accuracy, quip, honorDamage) { 
+	createDuelOpponent: function(name, honor, speed, accuracy, quip, damage) { 
 		return {
 			name: name,
 			honor: honor,
 			speed: speed,
 			accuracy: accuracy,
-			insult: {quip: quip, honorDamage: honorDamage}
+			insult: {quip: quip, damage: damage}
 		};
 	},
 
@@ -24,36 +24,50 @@ var duel = {
 			var speed = 10 - i;
 			var accuracy = 1 - (0.1 * 1);
 			var quip = duel.listOfQuips[i];
-			var honorDamage = 10 + i;
-			duel.allOpponentObjects[i] = duel.createDuelOpponent(name, honor, speed, accuracy, quip, honorDamage);
+			var damage = 10 + i;
+			duel.allOpponentObjects[i] = duel.createDuelOpponent(name, honor, speed, accuracy, quip, damage);
 		});
 	},
 
 	opponentsFaced: 0,
-
+	readyToStep: false,
+	hasNotStepped: true,
 	walkInterval: 0,
 	walkAndDraw: function() {
+
 		var stepCount = 0;
 		var opponent = duel.allOpponentObjects[duel.opponentsFaced];
 		duel.walkInterval = setInterval(function(){
 			if (stepCount < 9) {
+				duel.readyToStep = true;
+				display.step(duel.stepCount);
 				stepCount++;
-				console.log('step')
+				var stepKey = 1;
+				display.log('step [' + stepKey + ']', 'step' + duel.stepCount + '-' + duel.opponentsFaced);
+				duel.hasNotStepped = true;
+				stepTimeout = setTimeout(function() {
+					if (duel.hasNotStepped) {
+						clearInterval(duel.walkInterval);
+						display.log('You tripped <br>------x------');
+						duel.readyToStep = false;
+					};
+				}, 500);
 			} else {
+				duel.readyToStep = false;
 				clearInterval(duel.walkInterval)
 				console.log('turn and shoot');
-				duel.opponentTurnAndDraw(opponent.speed, opponent.name);
-				opponentAim(opponent.accuracy);
-				opponentFire(opponent.HonorDamage);
+				duel.opponentTurnDrawAimFire(opponent.speed, opponent.name);
+				duel.userTurnDrawAimFire()
 			}
 		}, 1000);
+		duel.opponentsFaced++;
 	},
 
 	turnInterval: 0,
-	opponentTurnAndDraw: function(speed, name) {
-		var timer = speed * 25;
+	opponentTurnDrawAimFire: function(speed, name) {
+		var timer = speed * 100;
 		var counter = 0;
-		turnInterval = setInterval(function(){
+		duel.turnInterval = (function(){
 			if (counter === 0) {
 				console.log(name + ' turns and draws');
 				counter++;
@@ -62,21 +76,47 @@ var duel = {
 				counter++;
 			} else {
 				console.log('bang');
-				clearInterval(turnInterval);
+				clearInterval(duel.turnInterval);
+				duel.opponentAim(opponent.accuracy);
+				duel.opponentFire(opponent.damage);
 			}
 		}, timer);
+	},
+
+	opponentAim: function(accuracy) {
+		
+	},
+
+	opponentFire: function(damage) {
+
+	},
+
+	userTurnDrawAimFire: function() {
+
 	}
 
 }
 
-function opponentAim(accuracy) {
-
+var display = {
+	log: function(message, id) {
+		var logDiv = $('#log');
+		logDiv.append('<div class="logMessage" id="' + id + '">*: ' + message + '</div>');
+		logDiv.scrollTop(logDiv.prop('scrollHeight'));
+	},
+	step: function(stepCount) {
+		$('#spacer').append('___');
+	}
 }
 
-function opponentFire(honorDamage) {
+$('#display').click(function(){
+	duel.setDuelOpponentsInOrder();
+	duel.walkAndDraw();
+})
 
-}
-
-function userDraw() {
-
-}
+$('body').keyup(function(event) {
+  	if (duel.readyToStep) {
+    	duel.hasNotStepped = false;
+    	console.log('stepped');
+    	duel.readyToStep = false;
+  	}
+});

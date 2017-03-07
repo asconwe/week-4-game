@@ -3,19 +3,32 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Game!</title>
-	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400|Inconsolata:400,700" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="assets/css/reset.css">
-	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/duel.css">
 </head>
 <body>
 	<div class="box">
 		<div id="title"></div>
 		<div id="output">
 			<div id="status"></div>
-			<div id="opponent"></div>
-			<div id="honor"></div></div>
-			<div id="input">	
+			<div id="log"></div>
+			<div id="playerInfo">
+				<div class="player honor"></div>
+				<div class="player health"></div>
+			</div>
+			<div id="opponentInfo">
+				<div class="opponent honor"></div>
+				<div class="opponent health"></div>
+			</div>
+			<div id="display">
+				<span id="leftIndicator">_</span>
+				<span id="spacer"></span>
+				<span id="rightIndicator">_</span>
+			</div>
+		</div>
+		<div id="input">	
 		</div>
 	</div>
 
